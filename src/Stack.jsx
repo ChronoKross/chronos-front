@@ -1,8 +1,13 @@
 import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Box, Grow, Alert } from "@mui/material";
 
-function App() {
+function Stack() {
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("success");
+
   const [employees, setEmployees] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:3000/employee").then((res) => {
@@ -27,11 +32,33 @@ function App() {
   const handlePatch = async () => {
     await axios
       .patch("http://localhost:3000/employee", employees)
-      .then((res) => console.log(res.data), alert("database updated"));
+      .then((res) => {
+        console.log(res.data);
+        // alert("database updated")
+        setAlertMessage("Database updated.");
+        setAlertSeverity("success");
+        setAlertOpen(true);
+      });
   };
 
   return (
     <main className="flex items-center justify-center flex-col gap-y-5 h-screen w-screen">
+      {/* <Box
+        id="test-div"
+        sx={{
+          height: "50%",
+          backgroundColor: {
+            xs: "red",
+            sm: "green",
+            md: "blue",
+            lg: "yellow",
+            xl: "pink",
+          },
+        }}
+      >
+        Test Test Test
+      </Box> */}
+
       <div className="grid text-center gap-3 w-3/4">
         {employees.map((employee, index) => (
           <button
@@ -50,8 +77,13 @@ function App() {
       >
         PATCH
       </button>
+      <Grow in={alertOpen} mountOnEnter unmountOnExit>
+        <Alert onClose={() => setAlertOpen(false)} severity={alertSeverity}>
+          {alertMessage}
+        </Alert>
+      </Grow>
     </main>
   );
 }
 
-export default App;
+export default Stack;

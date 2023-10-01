@@ -9,6 +9,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MenuIcon from "@mui/icons-material/Menu";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 import { Link } from "react-router-dom"; // Import the Link component
 
 export default function Navbar() {
@@ -50,6 +51,16 @@ export default function Navbar() {
             </Link>
           </ListItem>
         ))}
+        <ListItem disablePadding>
+          <Link to="/">
+            <ListItemButton>
+              <ListItemIcon>
+                <ListAltIcon />
+              </ListItemIcon>
+              <ListItemText primary="Stack" />
+            </ListItemButton>
+          </Link>
+        </ListItem>
       </List>
     </Box>
   );

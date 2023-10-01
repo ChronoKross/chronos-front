@@ -13,8 +13,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Stack />} />
       </Routes>
-      <Stack />
     </BrowserRouter>
+    {/* {
+      location.path !== "/dashboard" && (
+        <Stack />
+      )
+    } */}
   </React.StrictMode>
 );
