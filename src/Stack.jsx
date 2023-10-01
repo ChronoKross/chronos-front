@@ -1,17 +1,19 @@
 import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Box, Grow, Alert } from "@mui/material";
+import { Grow, Alert, Typography } from "@mui/material";
 
 function Stack() {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("success");
 
+  const [registerDate, setRegisterDate] = useState([]);
   const [employees, setEmployees] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:3000/employee").then((res) => {
       setEmployees(res.data);
+      //  (JSON.stringify(localStorage.getItem("registerDate")));
     });
   }, []);
 
@@ -27,6 +29,19 @@ function Stack() {
     filteredStack.map((employee, i) => (employee.position = i + 1));
     // Update the state with the modified array
     setEmployees(filteredStack);
+
+    const today = new Date();
+
+    const templateMessage = `${
+      clickedName.name
+    } left at ${today.toLocaleString()}`;
+
+    const tempRegisterDateArray = [...registerDate];
+
+    tempRegisterDateArray.unshift(templateMessage);
+
+    setRegisterDate(tempRegisterDateArray);
+    // localStorage.setItem("registerDate", JSON.stringify(tempRegisterDateArray));
   };
 
   const handlePatch = async () => {
@@ -34,7 +49,6 @@ function Stack() {
       .patch("http://localhost:3000/employee", employees)
       .then((res) => {
         console.log(res.data);
-        // alert("database updated")
         setAlertMessage("Database updated.");
         setAlertSeverity("success");
         setAlertOpen(true);
@@ -42,28 +56,17 @@ function Stack() {
   };
 
   return (
-    <main className="flex items-center justify-center flex-col gap-y-5 h-screen w-screen">
-      {/* <Box
-        id="test-div"
-        sx={{
-          height: "50%",
-          backgroundColor: {
-            xs: "red",
-            sm: "green",
-            md: "blue",
-            lg: "yellow",
-            xl: "pink",
-          },
-        }}
-      >
-        Test Test Test
-      </Box> */}
-
-      <div className="grid text-center gap-3 w-3/4">
+    <main
+      className="flex items-center justify-center flex-col gap-y-5 "
+      style={{
+        overflowY: "hidden",
+      }}
+    >
+      <div className="text-center gap-3 w-3/4">
         {employees.map((employee, index) => (
           <button
             key={index}
-            className=" w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibdivd bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+            className="w-full py-3 px-4 my-1 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibdivd bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 md:flex md:flex-col md:gap-1 "
             onClick={() => handleClick(employee, index)}
           >
             {employee.name}
@@ -82,6 +85,18 @@ function Stack() {
           {alertMessage}
         </Alert>
       </Grow>
+
+      <div className=" h-60 overflow-y-hidden">
+        {registerDate.map((register, index) => (
+          <Typography
+            key={`register-date-${index}`}
+            variant="body1"
+            color="white"
+          >
+            {register}
+          </Typography>
+        ))}
+      </div>
     </main>
   );
 }

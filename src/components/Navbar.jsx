@@ -66,10 +66,12 @@ export default function Navbar() {
   );
 
   return (
-    <div className=" flex justify-end mr-6 pt-6 ">
+    <div className=" flex justify-end mr-6 pt-20">
       {["top"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <MenuIcon onClick={toggleDrawer(anchor, true)}>{anchor}</MenuIcon>
+          <MenuIcon className=" mr-5 mb-6" onClick={toggleDrawer(anchor, true)}>
+            {anchor}
+          </MenuIcon>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
