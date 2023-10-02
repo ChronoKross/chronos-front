@@ -57,7 +57,7 @@ export default function Navbar() {
               <ListItemIcon>
                 <ListAltIcon />
               </ListItemIcon>
-              <ListItemText primary="Stack" />
+              <ListItemText primary="Home" />
             </ListItemButton>
           </Link>
         </ListItem>
@@ -69,7 +69,10 @@ export default function Navbar() {
     <div className=" flex justify-end mr-6 pt-20">
       {["top"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <MenuIcon className=" mr-5 mb-6" onClick={toggleDrawer(anchor, true)}>
+          <MenuIcon
+            className=" absolute top-6 right-6 text-white "
+            onClick={toggleDrawer(anchor, true)}
+          >
             {anchor}
           </MenuIcon>
           <Drawer
