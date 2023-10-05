@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import axios from "axios";
 
-export default function Login() {
+export default function Register() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -11,9 +12,17 @@ export default function Login() {
     setPassword(e.target.value);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(userName, password);
+    try {
+      const response = await axios.post("http://localhost:3000/auth/register", {
+        username: userName,
+        password: password,
+      });
+      response.data && window.location.replace("/");
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -35,6 +44,9 @@ export default function Login() {
               placeholder="Username"
               autoComplete="username"
             />
+            <p className="text-red-500 text-xs italic">
+              {userName ? "" : "Please create a username."}
+            </p>
           </div>
           <div className="mb-6">
             <label
@@ -44,7 +56,7 @@ export default function Login() {
               Password
             </label>
             <input
-              className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               type="password"
               onChange={(e) => handlePassword(e)}
@@ -52,16 +64,16 @@ export default function Login() {
               autoComplete="current-password"
             />
             <p className="text-red-500 text-xs italic">
-              {password ? "" : "Please choose a password."}
+              {password ? "" : "Please create a password."}
             </p>
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none "
+              type="submit"
               onClick={(e) => handleSubmit(e)}
             >
-              Sign In
+              Register
             </button>
             <a
               className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
