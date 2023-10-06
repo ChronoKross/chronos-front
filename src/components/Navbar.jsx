@@ -39,7 +39,7 @@ export default function Navbar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List className=" bg-sky-950 text-white">
-        {["Register", "Dashboard"].map((text, index) => (
+        {["Login", "Dashboard"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <Link to={`/${text.toLowerCase()}`}>
               <ListItemButton>

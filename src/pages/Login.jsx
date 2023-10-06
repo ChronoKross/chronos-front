@@ -1,7 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
+
 import axios from "axios";
 
-export default function Register() {
+export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,18 +17,22 @@ export default function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
-      const response = await axios.post("http://localhost:3000/auth/register", {
+      const response = await axios.post("http://localhost:3000/auth/login", {
         username: userName,
         password: password,
       });
-      console.log(response.data);
+      if (response.status === 200) {
+        // Save the username in localStorage
+        localStorage.setItem("admin", userName);
+        // history.push("/");
+
+        // Redirect or perform any other action for a successful login
+        // For example, you can redirect the user to a dashboard:
+      }
     } catch (error) {
       console.error(error);
     }
-
-    localStorage.setItem("user", userName);
   }
 
   return (
@@ -78,7 +83,7 @@ export default function Register() {
               type="submit"
               onClick={(e) => handleSubmit(e)}
             >
-              Register
+              Login
             </button>
             <a
               className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"

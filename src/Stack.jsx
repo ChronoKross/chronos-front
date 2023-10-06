@@ -13,9 +13,10 @@ function Stack() {
   useEffect(() => {
     axios.get("http://localhost:3000/employee").then((res) => {
       setEmployees(res.data);
-      //  (JSON.stringify(localStorage.getItem("registerDate")));
     });
   }, []);
+
+  let admin = localStorage.getItem("admin");
 
   const handleClick = (clickedName) => {
     // Create a copy of the employees array
@@ -41,7 +42,6 @@ function Stack() {
     tempRegisterDateArray.unshift(templateMessage);
 
     setRegisterDate(tempRegisterDateArray);
-    // localStorage.setItem("registerDate", JSON.stringify(tempRegisterDateArray));
   };
 
   const handlePatch = async () => {
