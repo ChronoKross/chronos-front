@@ -10,15 +10,14 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MenuIcon from "@mui/icons-material/Menu";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import { Link } from "react-router-dom"; // Import the Link component
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [state, setState] = React.useState({
     top: false,
-    left: false,
-    bottom: false,
-    right: false,
   });
+
+  const isLoggedIn = localStorage.getItem("admin");
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -31,36 +30,77 @@ export default function Navbar() {
     setState({ ...state, [anchor]: open });
   };
 
+  const handleLogout = () => {
+    // Perform logout actions here, such as clearing localStorage
+    localStorage.removeItem("admin");
+    window.location.href = "/";
+  };
+
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{ width: anchor === "top" ? "auto" : 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List className=" bg-sky-950 text-white">
-        {["Login", "Dashboard"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <Link to={`/${text.toLowerCase()}`}>
-              <ListItemButton>
+        {isLoggedIn ? (
+          // Display "Dashboard" and "Logout" when the user is logged in
+          <>
+            <ListItem disablePadding>
+              <Link to="/dashboard">
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AccountBoxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dashboard" />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={handleLogout}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <AccountBoxIcon />}
+                  <AccountBoxIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary="Logout" />
               </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
-        <ListItem disablePadding>
-          <Link to="/">
-            <ListItemButton>
-              <ListItemIcon>
-                <ListAltIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItemButton>
-          </Link>
-        </ListItem>
+            </ListItem>
+          </>
+        ) : (
+          // Display "Login", "Dashboard", and "Home" when the user is not logged in
+          <>
+            <ListItem disablePadding>
+              <Link to="/login">
+                <ListItemButton>
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Login" />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+            <ListItem disablePadding>
+              <Link to="/dashboard">
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AccountBoxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dashboard" />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+            <ListItem disablePadding>
+              <Link to="/">
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ListAltIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+          </>
+        )}
       </List>
     </Box>
   );

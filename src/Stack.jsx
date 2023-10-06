@@ -73,13 +73,15 @@ function Stack() {
           </button>
         ))}
       </div>
-      <button
-        type="button"
-        className="rounded-md w-20 h-10 bg-slate-800 text-neutral-300"
-        onClick={handlePatch}
-      >
-        PATCH
-      </button>
+      {admin && (
+        <button
+          type="button"
+          className="rounded-md w-20 h-10 bg-slate-800 text-neutral-300"
+          onClick={handlePatch}
+        >
+          PATCH
+        </button>
+      )}
       <Grow in={alertOpen} mountOnEnter unmountOnExit>
         <Alert onClose={() => setAlertOpen(false)} severity={alertSeverity}>
           {alertMessage}

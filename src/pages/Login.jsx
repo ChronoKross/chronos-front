@@ -17,22 +17,23 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:3000/auth/login", {
+    await axios
+      .post("http://localhost:3000/auth/login", {
         username: userName,
         password: password,
-      });
-      if (response.status === 200) {
-        // Save the username in localStorage
-        localStorage.setItem("admin", userName);
-        // history.push("/");
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          // Save the username in localStorage
+          localStorage.setItem("admin", userName);
 
-        // Redirect or perform any other action for a successful login
-        // For example, you can redirect the user to a dashboard:
-      }
-    } catch (error) {
-      console.error(error);
-    }
+          // Redirect to the home page ("/") after successful login
+          window.location.href = "/";
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
