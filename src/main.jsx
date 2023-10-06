@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Stack from "./Stack.jsx";
-import Navbar from "./components/navbar.jsx";
+import Navbar from "./components/Navbar.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -9,6 +9,7 @@ import Login from "./pages/Login.jsx";
 import { UserContext } from "./context.js/context.js";
 
 let user = localStorage.getItem("user");
+alert("You need to log in to save the stack!");
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
