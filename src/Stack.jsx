@@ -46,7 +46,7 @@ function Stack() {
 
   const handlePatch = async () => {
     await axios
-      .patch("http://localhost:3000/employee", employees)
+      .patch("https://repreveback-end.onrender.com/employee", employees)
       .then((res) => {
         console.log(res.data);
         setAlertMessage("Database updated.");
