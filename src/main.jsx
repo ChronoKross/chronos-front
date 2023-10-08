@@ -8,8 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import { UserContext } from "./context.js/context.js";
 
-let user = localStorage.getItem("user");
-alert("You need to log in to save the stack!");
+let admin = localStorage.getItem("admin");
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
