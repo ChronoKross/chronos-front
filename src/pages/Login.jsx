@@ -21,13 +21,10 @@ export default function Login() {
     setIsLoading(true); // Set loading to true when submitting
 
     try {
-      const response = await axios.post(
-        "https://repreveback-end.onrender.com/auth/login",
-        {
-          username: userName,
-          password: password,
-        }
-      );
+      const response = await axios.post("http://localhost:3000/auth/login", {
+        username: userName,
+        password: password,
+      });
 
       if (response.status === 200) {
         // Save the username in localStorage

@@ -18,13 +18,10 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "https://repreveback-end.onrender.com/auth/register",
-        {
-          username: userName,
-          password: password,
-        }
-      );
+      const response = await axios.post("http://localhost:3000/auth/register", {
+        username: userName,
+        password: password,
+      });
       console.log(response.data);
     } catch (error) {
       console.error(error);
