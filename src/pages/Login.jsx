@@ -26,7 +26,7 @@ export default function Login() {
         {
           username: userName,
           password: password,
-        }
+        }.then((window.location.href = "/"))
       );
 
       if (response.status === 200) {
@@ -34,7 +34,6 @@ export default function Login() {
         localStorage.setItem("admin", userName);
 
         // Redirect to the home page ("/") after successful login
-        window.location.href = "/";
       }
     } catch (error) {
       console.error(error);
