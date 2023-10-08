@@ -11,7 +11,7 @@ function Stack() {
   const [registerDate, setRegisterDate] = useState([]);
   const [employees, setEmployees] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3000/employee").then((res) => {
+    axios.get("https://repreveback-end.onrender.com/employee").then((res) => {
       setEmployees(res.data);
     });
   }, []);
