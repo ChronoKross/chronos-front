@@ -48,7 +48,7 @@ function Stack() {
     await axios
       .patch("https://repreveback-end.onrender.com/employee", employees)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setAlertMessage("Database updated.");
         setAlertSeverity("success");
         setAlertOpen(true);
