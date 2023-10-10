@@ -1,23 +1,33 @@
 import "./App.css";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Grow, Alert, Typography } from "@mui/material";
 
 function Stack() {
-  const [alertOpen, setAlertOpen] = useState(true); // Set alertOpen to true initially
-  const [alertMessage, setAlertMessage] = useState(
-    "If someone volunteers to leave, click their name, and it will place them at the bottom of the stack. You must log in to edit the stack. Username: test Password: test"
-  );
-  const [alertSeverity, setAlertSeverity] = useState("info"); // Set initial severity to info
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("info");
 
   const [registerDate, setRegisterDate] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [admin, setAdmin] = useState(localStorage.getItem("admin"));
 
+  const firstRender = useRef(true); // Create a ref for tracking the first render
+
   useEffect(() => {
     axios.get("https://repreveback-end.onrender.com/employee").then((res) => {
       setEmployees(res.data);
     });
+
+    if (firstRender.current) {
+      // Display the alert only on the first render
+      setAlertMessage(
+        "If someone volunteers to leave, click their name, and it will place them at the bottom of the stack. You must log in to edit the stack. Username: test Password: test"
+      );
+      setAlertSeverity("info");
+      setAlertOpen(true);
+      firstRender.current = false; // Mark the first render as completed
+    }
   }, []);
 
   const handleClick = (clickedName) => {
