@@ -20,28 +20,25 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true); // Set loading to true when submitting
 
-    try {
-      const response = await axios.post(
-        "https://repreveback-end.onrender.com/auth/login",
-        {
-          username: userName,
-          password: password,
-        }
-      );
+   try {
+  const response = await axios.post("https://repreveback-end.onrender.com/auth/login", {
+    username: userName,
+    password: password,
+  });
 
-      if (response.status === 200) {
-        // Save the username in localStorage
-        localStorage.setItem("admin", userName);
+  if (response.status === 200) {
+    // Save the username in localStorage
+    localStorage.setItem("admin", userName);
 
-        // Redirect to the home page ("/") after successful login
-        window.location.href = "/";
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false); // Set loading to false after login attempt
-    }
+    // Redirect to the home page ("/") after successful login
+    window.location.href = "/";
   }
+} catch (error) {
+  console.error(error);
+} finally {
+  setIsLoading(false); // Set loading to false after login attempt
+}
+
 
   return (
     <div className=" flex justify-center align-middle">
