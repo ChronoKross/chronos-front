@@ -1,6 +1,6 @@
 import "./App.css";
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Grow, Alert, Typography } from "@mui/material";
 
 function Stack() {
@@ -12,21 +12,24 @@ function Stack() {
   const [employees, setEmployees] = useState([]);
   const [admin, setAdmin] = useState(localStorage.getItem("admin"));
 
-  const firstRender = useRef(true); // Create a ref for tracking the first render
-
   useEffect(() => {
     axios.get("https://repreveback-end.onrender.com/employee").then((res) => {
       setEmployees(res.data);
     });
 
-    if (firstRender.current) {
+    // Check if the alert has been shown previously
+    const alertShown = localStorage.getItem("alertShown");
+
+    if (!alertShown) {
       // Display the alert only on the first render
       setAlertMessage(
         "If someone volunteers to leave, click their name, and it will place them at the bottom of the stack. You must log in to edit the stack. Username: test Password: test"
       );
       setAlertSeverity("info");
       setAlertOpen(true);
-      firstRender.current = false; // Mark the first render as completed
+
+      // Set the flag in localStorage to indicate that the alert has been shown
+      localStorage.setItem("alertShown", "true");
     }
   }, []);
 
