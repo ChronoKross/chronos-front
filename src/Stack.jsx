@@ -20,6 +20,7 @@ function Stack() {
 
   const handleClick = (clickedName) => {
     if (!admin) {
+      alert("You are not authorized to do this action.");
       return;
     }
     // Create a copy of the employees array
