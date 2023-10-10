@@ -24,7 +24,7 @@ export default function Login() {
       const response = await axios.post(
         "https://repreveback-end.onrender.com/auth/login",
         {
-          userName: userName,
+          username: userName,
           password: password,
         }
       );
