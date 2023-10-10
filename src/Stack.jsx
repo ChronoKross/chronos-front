@@ -19,6 +19,9 @@ function Stack() {
   let admin = localStorage.getItem("admin");
 
   const handleClick = (clickedName) => {
+    if (!admin) {
+      return;
+    }
     // Create a copy of the employees array
     const updatedStack = [...employees];
     // Filter out the clickedName
