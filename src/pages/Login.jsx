@@ -6,6 +6,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Add loading state
 
+  // const useContext = useContext(UserContext);
+
   function handleUser(e) {
     setUserName(e.target.value);
   }
@@ -42,10 +44,9 @@ export default function Login() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-full max-w-xs">
+    <div className=" flex justify-center align-middle">
+      <div className="w-full max-w-xs h-fit ">
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          {/* Username input */}
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -62,11 +63,9 @@ export default function Login() {
               autoComplete="username"
             />
             <p className="text-red-500 text-xs italic">
-              {!userName && "Please enter a username."}
+              {userName ? "" : "Please create a username."}
             </p>
           </div>
-
-          {/* Password input */}
           <div className="mb-6">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -83,19 +82,17 @@ export default function Login() {
               autoComplete="current-password"
             />
             <p className="text-red-500 text-xs italic">
-              {!password && "Please enter a password."}
+              {password ? "" : "Please create a password."}
             </p>
           </div>
-
-          {/* Login button */}
           <div className="flex items-center justify-between">
             <button
               className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none ${
-                isLoading ? "opacity-50 cursor-wait" : ""
+                isLoading ? "opacity-50 cursor-wait" : "" // Disable button and show loading cursor while loading
               }`}
               type="submit"
               onClick={(e) => handleSubmit(e)}
-              disabled={isLoading}
+              disabled={isLoading} // Disable the button while loading
             >
               {isLoading ? "Logging In..." : "Login"}
             </button>
