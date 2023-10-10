@@ -13,9 +13,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="#/login" element={<Login />} />
-        <Route path="#/dashboard" element={<Dashboard />} />
-        <Route path="#/" element={<Stack />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Stack />} />
         <Route path="*" element={<Login />} />
       </Routes>
     </BrowserRouter>
