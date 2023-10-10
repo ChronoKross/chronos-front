@@ -4,9 +4,8 @@ import axios from "axios";
 export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Add loading state
-
-  // const useContext = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(""); // Add state for error message
 
   function handleUser(e) {
     setUserName(e.target.value);
@@ -18,7 +17,8 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setIsLoading(true); // Set loading to true when submitting
+    setIsLoading(true);
+    setError(""); // Reset error state before making the request
 
     try {
       const response = await axios.post(
@@ -30,22 +30,21 @@ export default function Login() {
       );
 
       if (response.status === 200) {
-        // Save the username in localStorage
         localStorage.setItem("admin", userName);
-
-        // Redirect to the home page ("/") after successful login
         window.location.href = "/";
       }
     } catch (error) {
+      // Display error message to the user
+      setError("Wrong credentials. Please try again.");
       console.error(error);
     } finally {
-      setIsLoading(false); // Set loading to false after login attempt
+      setIsLoading(false);
     }
   }
 
   return (
-    <div className=" flex justify-center align-middle">
-      <div className="w-full max-w-xs h-fit ">
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-full max-w-xs">
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
             <label
@@ -63,9 +62,10 @@ export default function Login() {
               autoComplete="username"
             />
             <p className="text-red-500 text-xs italic">
-              {userName ? "" : "Please create a username."}
+              {!userName && "Please enter a username."}
             </p>
           </div>
+
           <div className="mb-6">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -82,20 +82,22 @@ export default function Login() {
               autoComplete="current-password"
             />
             <p className="text-red-500 text-xs italic">
-              {password ? "" : "Please create a password."}
+              {!password && "Please enter a password."}
             </p>
           </div>
+
           <div className="flex items-center justify-between">
             <button
               className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none ${
-                isLoading ? "opacity-50 cursor-wait" : "" // Disable button and show loading cursor while loading
+                isLoading ? "opacity-50 cursor-wait" : ""
               }`}
               type="submit"
               onClick={(e) => handleSubmit(e)}
-              disabled={isLoading} // Disable the button while loading
+              disabled={isLoading}
             >
               {isLoading ? "Logging In..." : "Login"}
             </button>
+            <p className="text-red-500 text-xs italic">{error}</p>
             <a
               className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
               href="#"
