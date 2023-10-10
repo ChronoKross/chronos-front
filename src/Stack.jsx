@@ -16,7 +16,7 @@ function Stack() {
     });
   }, []);
 
-  let admin = localStorage.getItem("admin");
+  // let admin = localStorage.getItem("admin");
 
   const handleClick = (clickedName) => {
     // Create a copy of the employees array
