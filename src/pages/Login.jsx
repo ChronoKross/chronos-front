@@ -22,9 +22,9 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "https://repreveback-end.onrender.com/auth/login",
+        "https://repreveback-end.onrender.com//auth/login",
         {
-          username: userName,
+          userName: userName,
           password: password,
         }
       );
