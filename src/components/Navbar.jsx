@@ -45,7 +45,7 @@ export default function Navbar() {
     >
       <List className=" bg-sky-950 text-white">
         {isLoggedIn ? (
-          // Display "Dashboard" and "Logout" when the user is logged in
+          // Display "Dashboard," "Home," and "Logout" when the user is logged in
           <>
             <ListItem disablePadding>
               <Link to="/dashboard">
@@ -54,6 +54,16 @@ export default function Navbar() {
                     <AccountBoxIcon />
                   </ListItemIcon>
                   <ListItemText primary="Dashboard" />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+            <ListItem disablePadding>
+              <Link to="/">
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ListAltIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
                 </ListItemButton>
               </Link>
             </ListItem>
@@ -67,7 +77,7 @@ export default function Navbar() {
             </ListItem>
           </>
         ) : (
-          // Display "Login", "Dashboard", and "Home" when the user is not logged in
+          // Display "Login," "Dashboard," and "Home" when the user is not logged in
           <>
             <ListItem disablePadding>
               <Link to="/login">
