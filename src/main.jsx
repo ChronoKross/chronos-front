@@ -18,6 +18,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </Routes>
     </BrowserRouter>
 
-    {location.path !== "/dashboard" && <Stack />}
+    {/* {location.path !== "/dashboard" && <Stack />} */}
   </React.StrictMode>
 );
