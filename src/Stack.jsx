@@ -16,6 +16,9 @@ function Stack() {
     axios.get("https://repreveback-end.onrender.com/employee").then((res) => {
       setEmployees(res.data);
     });
+    setAlertMessage(
+      "If someone voulenteers to leave, click their name and it will place them at the bottom of the stack. You must log in to edit the stack. username: test password: test"
+    );
   }, []);
 
   const handleClick = (clickedName) => {
