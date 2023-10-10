@@ -23,7 +23,7 @@ function Stack() {
     if (!alertShown) {
       // Display the alert only on the first render
       setAlertMessage(
-        "If someone volunteers to leave, click their name, and it will place them at the bottom of the stack. You must log in to edit the stack. Username: test Password: test"
+        "If someone volunteers to leave, click their name, and it will place them at the bottom of the stack. You must log in to edit the stack. Username: test Password: test (after you have finished make sure to hit PATCH or it will NOT save to the database)"
       );
       setAlertSeverity("info");
       setAlertOpen(true);
