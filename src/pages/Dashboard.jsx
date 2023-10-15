@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+const calculateHoursMissed = (clockOutTime) => {
+  const shiftStart = 19; // 7 PM
+  const shiftEnd = 7; // 7 AM
+  const [hours, minutes] = clockOutTime.split(":");
+  const clockOutHours = parseInt(hours, 10);
+  let hoursMissed = 0;
+
+  if (clockOutHours < shiftStart) {
+    hoursMissed = shiftStart - clockOutHours;
+  } else if (clockOutHours < shiftEnd) {
+    hoursMissed = 0;
+  } else {
+    hoursMissed = clockOutHours - shiftEnd;
+  }
+
+  return hoursMissed;
+};
+
 export default function Dashboard() {
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://repreveback-end.onrender.com/employee") // Replace with the actual API endpoint
+      .get("https://repreveback-end.onrender.com/employee")
       .then((res) => {
         setEmployees(res.data);
       })
@@ -23,9 +41,8 @@ export default function Dashboard() {
             <ul>
               {employee.timeOff.map((timeOff, index) => (
                 <li key={index}>
-                  {timeOff.time}
-                  Hours Not Worked:{" "}
-                  {12 - (7 - new Date(timeOff.date).getHours())}
+                  Clock-out Time: {timeOff.time} | Hours Missed:{" "}
+                  {calculateHoursMissed(timeOff.time)} hours
                 </li>
               ))}
             </ul>
