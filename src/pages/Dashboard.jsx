@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Dashboard() {
@@ -20,11 +20,13 @@ export default function Dashboard() {
       <div>
         {employees.map((employee) => (
           <div key={employee._id}>
-            {employee.timeOff.map((timeOff) => {
-              <ul>
-                <li>{timeOff}</li>
-              </ul>;
-            })}
+            <ul>
+              {employee.timeOff.map((timeOff, index) => (
+                <li key={index}>
+                  {timeOff.date} - {timeOff.type}
+                </li>
+              ))}
+            </ul>
             <p>{employee.name}</p>
             <p>{employee.position}</p>
             {/* Display other employee details as needed */}
