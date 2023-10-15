@@ -23,7 +23,8 @@ export default function Dashboard() {
             <ul>
               {employee.timeOff.map((timeOff, index) => (
                 <li key={index}>
-                  TimeOff= {12 - (7 - Math.floor(Number(timeOff.time)))}
+                  Hours Not Worked:{" "}
+                  {12 - (7 - new Date(timeOff.date).getHours())}
                 </li>
               ))}
             </ul>
