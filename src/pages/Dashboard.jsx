@@ -77,10 +77,8 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="h-screen w-screen">
-      <div className="flex justify-center items-center">
-        <canvas id="hoursMissedChart"></canvas>
-      </div>
+    <div className="h-screen flex justify-center items-center">
+      <canvas id="hoursMissedChart"></canvas>
     </div>
   );
 }
