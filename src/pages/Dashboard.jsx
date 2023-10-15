@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const calculateHoursMissed = (clockOutTime) => {
@@ -33,24 +33,52 @@ export default function Dashboard() {
       });
   }, []);
 
+  useEffect(() => {
+    // Create a chart after the employees data is loaded
+    if (employees.length > 0) {
+      createChart();
+    }
+  }, [employees]);
+
+  const createChart = () => {
+    const ctx = document.getElementById("hoursMissedChart").getContext("2d");
+
+    // Transform employee data into a format suitable for the chart
+    const chartData = {
+      labels: employees.map((employee) => employee.name),
+      datasets: [
+        {
+          label: "Hours Missed",
+          data: employees.map((employee) =>
+            employee.timeOff.reduce(
+              (total, timeOff) => total + calculateHoursMissed(timeOff.time),
+              0
+            )
+          ),
+          backgroundColor: "rgba(75, 192, 192, 0.2)", // Customize chart colors
+          borderColor: "rgba(75, 192, 192, 1)", // Customize chart colors
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    new Chart(ctx, {
+      type: "bar",
+      data: chartData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  };
+
   return (
-    <div className="h-screen w-screen flex justify-center items-center text-4xl font-bold text-white bg-gray-950">
-      <div>
-        {employees.map((employee) => (
-          <div key={employee._id}>
-            <ul>
-              {employee.timeOff.map((timeOff, index) => (
-                <li key={index}>
-                  Clock-out Time: {timeOff.time} | Hours Missed:{" "}
-                  {calculateHoursMissed(timeOff.time)} hours
-                </li>
-              ))}
-            </ul>
-            <p>{employee.name}</p>
-            <p>{employee.position}</p>
-            {/* Display other employee details as needed */}
-          </div>
-        ))}
+    <div className="h-screen w-screen">
+      <div className="flex justify-center items-center">
+        <canvas id="hoursMissedChart" width="400" height="200"></canvas>
       </div>
     </div>
   );
