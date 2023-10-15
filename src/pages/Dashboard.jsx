@@ -22,9 +22,7 @@ export default function Dashboard() {
           <div key={employee._id}>
             <ul>
               {employee.timeOff.map((timeOff, index) => (
-                <li key={index}>
-                  {timeOff.date} - {timeOff.type}
-                </li>
+                <li key={index}>{timeOff.time}</li>
               ))}
             </ul>
             <p>{employee.name}</p>
