@@ -22,7 +22,7 @@ export default function Dashboard() {
           <div key={employee._id}>
             <ul>
               {employee.timeOff.map((timeOff, index) => (
-                <li key={index}>{timeOff.time}</li>
+                <li key={index}>TimeOff= {12 - (7 - timeOff.time)}</li>
               ))}
             </ul>
             <p>{employee.name}</p>
