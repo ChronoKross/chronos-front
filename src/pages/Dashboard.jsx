@@ -6,7 +6,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("https://repreveback-end.onrender.com/api/employees") // Replace with the actual API endpoint
+      .get("https://repreveback-end.onrender.com/employee") // Replace with the actual API endpoint
       .then((res) => {
         setEmployees(res.data);
       })
