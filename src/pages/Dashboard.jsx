@@ -50,12 +50,7 @@ export default function Dashboard() {
       datasets: [
         {
           label: "Hours Missed",
-          data: employees.map((employee) =>
-            employee.timeOff.reduce(
-              (total, timeOff) => total + calculateHoursMissed(timeOff.time),
-              0
-            )
-          ),
+          data: employees.map((employee) => employee.timeOff),
           backgroundColor: "rgba(75, 192, 192, 0.2)", // Customize chart colors
           borderColor: "rgba(75, 192, 192, 1)", // Customize chart colors
           borderWidth: 1,
